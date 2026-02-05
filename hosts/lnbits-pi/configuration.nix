@@ -182,6 +182,21 @@ in
     };
   };
 
+  services.caddy = {
+    enable = true;
+    configFile = "/etc/caddy/Caddyfile";
+  };
+
+  environment.etc."caddy/Caddyfile".text = ''
+    127.0.0.1:8080 {
+      reverse_proxy 127.0.0.1:5000
+    }
+  '';
+
+  systemd.tmpfiles.rules = [
+    "L+ /root/Caddyfile - - - - /etc/caddy/Caddyfile"
+  ];
+
   networking.firewall.allowedTCPPorts = [ 22 5000 8765 ];
 
   environment.systemPackages = with pkgs; [
