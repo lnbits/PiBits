@@ -1,5 +1,5 @@
 {
-  description = "LNbits + Spark sidecar for Raspberry Pi 4";
+  description = "LNbits + Spark sidecar for Raspberry Pi 4/5";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
@@ -13,13 +13,24 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      nixosConfigurations.lnbits-pi = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit self; };
-        modules = [
-          nixos-hardware.nixosModules.raspberry-pi-4
-          ./hosts/lnbits-pi/configuration.nix
-        ];
+      nixosConfigurations = {
+        lnbits-pi4 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit self; };
+          modules = [
+            nixos-hardware.nixosModules.raspberry-pi-4
+            ./hosts/lnbits-pi/configuration.nix
+          ];
+        };
+
+        lnbits-pi5 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit self; };
+          modules = [
+            nixos-hardware.nixosModules.raspberry-pi-5
+            ./hosts/lnbits-pi/configuration.nix
+          ];
+        };
       };
     };
 }

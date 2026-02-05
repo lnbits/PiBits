@@ -1,6 +1,6 @@
-# LNbits + Spark Sidecar (Pi 4)
+# LNbits + Spark Sidecar (Pi 4/5)
 
-This repo contains a NixOS configuration for Raspberry Pi 4 that:
+This repo contains a NixOS configuration for Raspberry Pi 4/5 that:
 - installs LNbits from the `sparkwallet` branch
 - installs the Spark sidecar
 - installs Caddy and seeds a default Caddyfile
@@ -11,10 +11,20 @@ This repo contains a NixOS configuration for Raspberry Pi 4 that:
 Use a machine with Nix and build an SD image for the Pi:
 
 ```
-nix build .#nixosConfigurations.lnbits-pi.config.system.build.sdImage
+nix build .#nixosConfigurations.lnbits-pi4.config.system.build.sdImage
+```
+
+For Raspberry Pi 5:
+
+```
+nix build .#nixosConfigurations.lnbits-pi5.config.system.build.sdImage
 ```
 
 Flash the resulting image to an SD card.
+
+## Raspberry Pi 5 Notes
+
+Pi 5 support is community/experimental and not officially supported by NixOS yet. A UEFI-based boot flow is the most common path today and may require extra firmware setup on the device before first boot.
 
 ## First Boot
 
